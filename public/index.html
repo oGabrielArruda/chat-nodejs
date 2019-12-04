@@ -20,7 +20,7 @@
     </form>
 
     <script type="text/javascript">
-        var socket = io('177.220.18.20:3000');
+        var socket = io(window.location.href); // pega o socket de acordo com a url
 
         function renderMessage(message){
             $('.messages').append("<div class='message'><strong> "+
