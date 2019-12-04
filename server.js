@@ -15,6 +15,8 @@ app.use('/', (req, res) =>{
     res.render('index.html');
 });
 
+let messages = []; // array de mensagens
+
 server.listen(3000, () => {
     console.log("Running!");
 })
@@ -24,5 +26,6 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
 
     socket.on('sendMessage', data => {
         console.log(data);
+        messages.push(data); // armazena o objeto no array de mensagens
     });
 });
