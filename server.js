@@ -12,10 +12,17 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.use('/', (req, res) =>{
-    app.render('index.html');
+    res.render('index.html');
 });
 
 server.listen(3000, () => {
     console.log("Running!");
 })
 
+io.on('connection', socket => { // toda vez que um usuário se conectar
+    console.log(`Socket connected: ${socket.id}`);
+
+    socket.on('sendMessage', data => {
+        console.log(data);
+    });
+});
