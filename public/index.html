@@ -27,7 +27,13 @@
                                 "</strong>" + message.message + "</div>");
         }
 
-        socket.on('receivedMessage', message =>{
+        socket.on('previousMessages', messages => { // recebe o array de mensagens antigas
+            messages.forEach(message => { // pra cada mensagem no array
+                renderMessage(message);
+            });
+        });
+
+        socket.on('receivedMessage', message =>{ // recebe os dados do servidor
             renderMessage(message);
         });
 
@@ -45,7 +51,7 @@
 
                 renderMessage(messageObject);
 
-                socket.emit('sendMessage', messageObject);
+                socket.emit('sendMessage', messageObject); // manda os dados para o servidor
             }
         });      
     </script>
