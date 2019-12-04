@@ -1,0 +1,24 @@
+{
+  "name": "chat-nodejs",
+  "version": "1.0.0",
+  "description": "A chat using nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oGabrielArruda/chat-nodejs.git"
+  },
+  "author": "Gabriel Alves de Arruda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oGabrielArruda/chat-nodejs/issues"
+  },
+  "homepage": "https://github.com/oGabrielArruda/chat-nodejs#readme",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}
