@@ -11,6 +11,7 @@
 </head>
 <body>
     <form id="chat">
+        <h3>Usuários online: <span id="qtdOnline"> 0 </span></h3>
         <input type="text" name="username" placeholder="Digite seu usuário">
         <div class="messages"></div>
 
@@ -19,13 +20,17 @@
     </form>
 
     <script type="text/javascript">
-        var socket = io('http://localhost:3000');
+        var socket = io('177.220.18.20:3000');
 
         function renderMessage(message){
             $('.messages').append("<div class='message'><strong> "+
                                     message.author + ": " +
                                 "</strong>" + message.message + "</div>");
         }
+
+        socket.on('quantityOnline', quantity =>{
+            $("#qtdOnline").text(quantity);
+        });
 
         socket.on('previousMessages', messages => { // recebe o array de mensagens antigas
             messages.forEach(message => { // pra cada mensagem no array

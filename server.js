@@ -24,6 +24,9 @@ server.listen(3000, () => {
 io.on('connection', socket => { // toda vez que um usuário se conectar
     console.log(`Socket connected: ${socket.id}`);
 
+    socket.broadcast.emit('quantityOnline', io.engine.clientsCount);
+    socket.emit('quantityOnline', io.engine.clientsCount);
+
     socket.emit('previousMessages', messages); // manda os dados para todos clientes
 
     socket.on('sendMessage', data => {
