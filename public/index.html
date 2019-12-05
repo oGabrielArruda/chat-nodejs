@@ -57,6 +57,8 @@
                 renderMessage(messageObject);
 
                 socket.emit('sendMessage', messageObject); // manda os dados para o servidor
+
+                $('input[name=message]').val("");
             }
         });      
     </script>
