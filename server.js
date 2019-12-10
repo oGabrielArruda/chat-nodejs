@@ -35,18 +35,14 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
     socket.emit('previousRooms', rooms);
 
     socket.on('createRoom', (name) =>{
-        rooms.push(name);
         socket.emit('receivedRoom', name);
         socket.broadcast.emit('receivedRoom', name);        
-    });
 
-    socket.on('joinRoom', (name)=>{
-        console.log("joinou");
-        var i = sockets_rooms.indexOf(socket);
-        sockets_rooms.splice(i , 1);
-
+        
         var sala = io.of('/sala-' + name);
-        sala.on('connection', (socket) => {
+        rooms[name] = sala;
+
+        rooms[name].on('connection', (socket) => {
             socket.broadcast.emit('quantityOnline', io.engine.clientsCount);
             socket.emit('quantityOnline', io.engine.clientsCount);
         
@@ -57,5 +53,11 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
                 socket.broadcast.emit('receivedMessage', data); 
             });
         });
+    });
+
+    socket.on('joinRoom', (name)=>{
+        console.log("joinou");
+        var i = sockets_rooms.indexOf(socket);
+        sockets_rooms.splice(i , 1);
     });
 });
