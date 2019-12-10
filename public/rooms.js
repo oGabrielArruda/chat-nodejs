@@ -5,7 +5,7 @@ var anterior;
 
 function renderRoom(room){ // renderiza a ssala
     $("#rooms").append(`<div class="room"> 
-                        <h1> ` + room + `</h1> 
+                        <h1>` + room + `</h1> 
                     </div>`);
     var elems = document.getElementsByClassName('room');
     for(var i = 0; i < elems.length; i++){
@@ -43,7 +43,12 @@ $("#createRoom").click(()=>{ // abre o modal para criar
 $("#btnCriar").click(()=>{ // cria a sala
     var nome = $("#newRoomName").val();
     if(nome)
+    {
         socket.emit('createRoom', nome);
+        room_name = nome;
+        socket.emit('joinRoom', room_name);
+        window.location.href = window.location.href + 'sala-' + room_name;
+    } 
     else
     {
         alert('Insira um nome na sala!');
@@ -56,5 +61,5 @@ $("#rooms").submit(event=>{ // entra na sala
     event.preventDefault();
 
     socket.emit('joinRoom', room_name);
-
+    window.location.href = window.location.href + 'sala-' + room_name;
 });

@@ -35,7 +35,7 @@ var socket = io(window.location.href); // pega o socket de acordo com a url
                 renderMessage(messageObject);
 
                 socket.emit('sendMessage', messageObject); // manda os dados para o servidor
-
+                
                 $('input[name=message]').val("");
             }
         });      
