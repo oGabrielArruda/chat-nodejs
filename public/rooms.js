@@ -60,6 +60,8 @@ $("#btnCriar").click(()=>{ // cria a sala
 $("#rooms").submit(event=>{ // entra na sala
     event.preventDefault();
 
+    room_name = room_name.trim();
+    
     socket.emit('joinRoom', room_name);
     window.location.href = window.location.href + 'sala-' + room_name;
 });

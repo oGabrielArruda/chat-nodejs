@@ -23,33 +23,37 @@ server.listen(3000, () => {
     console.log("Running!");
 });
 
-let messages = []; // array de mensagens
 let rooms = [];
-let sockets_rooms = [];
+let rooms_names = [];
 
 
 io.on('connection', socket => { // toda vez que um usuário se conectar
     console.log(`Socket connected: ${socket.id}`);
 
-    sockets_rooms.push(socket);
-    socket.emit('previousRooms', rooms);
+    socket.emit('previousRooms',  rooms_names); // manda as salas pra quem logou na parte das rooms
 
-    socket.on('createRoom', (name) =>{
-        socket.emit('receivedRoom', name);
+    socket.on('createRoom', (name) =>{ // criando a sala
+        rooms_names.push(name); // insere a o nome da sala no vetor de nomes
+
+        socket.emit('receivedRoom', name); // exibe a nova sala para os usuarios logados
         socket.broadcast.emit('receivedRoom', name);        
 
-        
-        var sala = io.of('/sala-' + name);
+        name = name.trim();
+
+        var sala = io.of('/sala-' + name); // cria-se um name-space específico para a sala
         rooms[name] = sala;
 
+        let messages = []; // array de mensagens
+        let qtdOnline = 0;
         rooms[name].on('connection', (socket) => {
-            socket.broadcast.emit('quantityOnline', io.engine.clientsCount);
-            socket.emit('quantityOnline', io.engine.clientsCount);
+            qtdOnline++;
+            socket.broadcast.emit('quantityOnline', qtdOnline);
+            socket.emit('quantityOnline', qtdOnline);
         
             socket.emit('previousMessages', messages); // manda os dados para todos clientes
         
             socket.on('sendMessage', data => {
-               // messages.push(data); // armazena o objeto no array de mensagens
+                messages.push(data); // armazena o objeto no array de mensagens
                 socket.broadcast.emit('receivedMessage', data); 
             });
         });
@@ -57,7 +61,6 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
 
     socket.on('joinRoom', (name)=>{
         console.log("joinou");
-        var i = sockets_rooms.indexOf(socket);
-        sockets_rooms.splice(i , 1);
+        socket.disconnect();
     });
 });
