@@ -1,5 +1,6 @@
 var socket = io(window.location.href);
 
+let nomes_sala = [];
 var room_name = "";
 var anterior;
 
@@ -42,20 +43,24 @@ $("#createRoom").click(()=>{ // abre o modal para criar
 
 $("#btnCriar").click(()=>{ // cria a sala
     var nome = $("#newRoomName").val();
-    if(nome)
-    {
+
+    if(nome && nomes_sala.indexOf(nome) == -1) // se o nome não é vazio e ainda não existe
+        criarSala(nome);
+    else
+        alert('Nome de sala já existente ou nulo!');
+
+    $("#modalNovaSala").modal('hide');
+    $("#newRoomName").val('');
+});
+
+function criarSala(nome)
+{   
+        nomes_sala.push(nome);
         socket.emit('createRoom', nome);
         room_name = nome;
         socket.emit('joinRoom', room_name);
         window.location.href = window.location.href + 'sala-' + room_name;
-    } 
-    else
-    {
-        alert('Insira um nome na sala!');
-    }
-    $("#modalNovaSala").modal('hide');
-    $("#newRoomName").val('');
-});
+}
 
 $("#rooms").submit(event=>{ // entra na sala
     event.preventDefault();
