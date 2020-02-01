@@ -38,7 +38,8 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
         socket.emit('receivedRoom', name); // exibe a nova sala para os usuarios logados
         socket.broadcast.emit('receivedRoom', name);        
 
-        name = name.trim();
+        while(name.indexOf(' ') != -1)
+            name = name.replace(' ', '');
 
         var sala = io.of('/sala-' + name); // cria-se um name-space específico para a sala
         rooms[name] = sala;

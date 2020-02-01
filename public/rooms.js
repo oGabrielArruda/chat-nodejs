@@ -57,16 +57,19 @@ function criarSala(nome)
 {   
         nomes_sala.push(nome);
         socket.emit('createRoom', nome);
-        room_name = nome;
+
+        while (nome.indexOf(' ') != -1)  // tira os espaços brancos
+            nome = nome.replace(' ', '');
+
         socket.emit('joinRoom', room_name);
-        window.location.href = window.location.href + 'sala-' + room_name;
+        window.location.href = window.location.href + 'sala-' + nome;
 }
 
 $("#rooms").submit(event=>{ // entra na sala
     event.preventDefault();
 
-    room_name = room_name.trim();
-    
+    while(room_name.indexOf(' ') != -1) // tira os espaços do nome da sala selecionada
+       room_name = room_name.replace(' ', '');
     socket.emit('joinRoom', room_name);
     window.location.href = window.location.href + 'sala-' + room_name;
 });
