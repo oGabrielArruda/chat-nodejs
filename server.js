@@ -39,7 +39,7 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
         socket.broadcast.emit('receivedRoom', name);        
 
         while(name.indexOf(' ') != -1)
-            name = name.replace(' ', '');
+            name = name.replace(' ', '%20');
 
         var sala = io.of('/sala-' + name); // cria-se um name-space específico para a sala
         rooms[name] = sala;
