@@ -6,6 +6,11 @@ var socket = io(window.location.href); // pega o socket de acordo com a url
                                 "</strong>" + message.message + "</div>");
         }
 
+        function renderAdvice(advice, color){
+            $('.messages').append("<div class='message'><strong>" +
+            "<span style='color: " + color + ";'>" + advice  +"</span></strong> </div>");
+        }
+
         socket.on('quantityOnline', quantity =>{
             $("#qtdOnline").text(quantity);
         });
@@ -21,11 +26,8 @@ var socket = io(window.location.href); // pega o socket de acordo com a url
         });
 
         socket.on('receivedConnection', nome =>{
-            var msg = {
-                author: "Servidor",
-                message: nome + " entrou na sala!",
-            };
-            renderMessage(msg);
+            var aviso = nome + " entrou na sala!";
+            renderAdvice(aviso, 'green');
         });
 
         
@@ -34,11 +36,8 @@ var socket = io(window.location.href); // pega o socket de acordo com a url
         });
     
         socket.on('receivedDisconnect', nome => {
-            var msg = {
-                author: "Servidor",
-                message: nome + " saiu da sala!",
-            };
-            renderMessage(msg);
+            var aviso = nome + " saiu da sala!";
+            renderAdvice(aviso, 'red');
         });
 
         window.onbeforeunload = function(){
