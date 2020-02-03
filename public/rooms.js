@@ -1,6 +1,6 @@
 var socket = io(window.location.href);
 
-let nomes_sala = [];
+var nomes_sala = [];
 var room_name = "";
 var anterior;
 
