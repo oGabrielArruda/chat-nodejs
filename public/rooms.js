@@ -58,12 +58,16 @@ function criarSala(nome)
         nomes_sala.push(nome);
         socket.emit('createRoom', nome);
 
-        socket.emit('joinRoom', room_name);
-        window.location.href = window.location.href + 'sala-' + nome;
+        entrarNaSala(nome);
 }
 
 $("#rooms").submit(event=>{ // entra na sala
     event.preventDefault();
     socket.emit('joinRoom', room_name);
-    window.location.href = window.location.href + 'sala-' + room_name;
+    entrarNaSala(room_name);
 });
+
+function entrarNaSala(nome){
+    socket.emit('joinRoom', nome);
+    window.location.href = window.location.href + 'sala-' + nome;
+}
