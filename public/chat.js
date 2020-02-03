@@ -23,7 +23,7 @@ var socket = io(window.location.href); // pega o socket de acordo com a url
         socket.on('receivedConnection', nome =>{
             var msg = {
                 author: "Servidor",
-                message: nome+" entrou na sala!",
+                message: nome + " entrou na sala!",
             };
             renderMessage(msg);
         });
@@ -32,6 +32,18 @@ var socket = io(window.location.href); // pega o socket de acordo com a url
         $(document).ready(()=>{
             socket.emit('newConnection', localStorage.getItem("username"));
         });
+    
+        socket.on('receivedDisconnect', nome => {
+            var msg = {
+                author: "Servidor",
+                message: nome + " saiu da sala!",
+            };
+            renderMessage(msg);
+        });
+
+        window.onbeforeunload = function(){
+            socket.emit('newDisconnect', localStorage.getItem("username"));
+        }
 
 
         $('#chat').submit(function(event){
