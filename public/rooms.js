@@ -79,6 +79,7 @@ $("#rooms").submit(event=>{ // entra na sala
 });
 
 function entrarNaSala(nome){
+    localStorage.setItem("username", $("#txtUsername").val());
     socket.emit('joinRoom', nome);
     window.location.href = window.location.href + 'sala-' + nome;
 }

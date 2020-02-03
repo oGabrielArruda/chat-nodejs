@@ -23,7 +23,7 @@ var socket = io(window.location.href); // pega o socket de acordo com a url
         $('#chat').submit(function(event){
             event.preventDefault();
 
-            var author = $('input[name=username]').val();
+            var author = localStorage.getItem("username");
             var message = $('input[name=message]').val();
 
             if(author.length && message.length){
