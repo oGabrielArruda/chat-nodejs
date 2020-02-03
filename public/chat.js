@@ -20,6 +20,20 @@ var socket = io(window.location.href); // pega o socket de acordo com a url
             renderMessage(message);
         });
 
+        socket.on('receivedConnection', nome =>{
+            var msg = {
+                author: "Servidor",
+                message: nome+" entrou na sala!",
+            };
+            renderMessage(msg);
+        });
+
+        
+        $(document).ready(()=>{
+            socket.emit('newConnection', localStorage.getItem("username"));
+        });
+
+
         $('#chat').submit(function(event){
             event.preventDefault();
 
@@ -38,4 +52,4 @@ var socket = io(window.location.href); // pega o socket de acordo com a url
                 
                 $('input[name=message]').val("");
             }
-        });      
+        });

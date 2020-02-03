@@ -53,6 +53,11 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
         
             socket.emit('previousMessages', messages); // manda os dados para todos clientes
         
+            socket.on('newConnection', name => {
+                socket.emit('receivedConnection', name);
+                socket.broadcast.emit('receivedConnection', name);
+            });
+
             socket.on('sendMessage', data => {
                 messages.push(data); // armazena o objeto no array de mensagens
                 socket.broadcast.emit('receivedMessage', data); 
