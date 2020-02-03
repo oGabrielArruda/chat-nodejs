@@ -38,7 +38,13 @@ function selectSala(){ // seleciona a sala
 
 
 $("#createRoom").click(()=>{ // abre o modal para criar
-    $("#modalNovaSala").modal('show');
+    if(!nomePreenchido())
+    {
+        alert("Insira um nome de usuário!");
+        $("#txtUsername").focus();
+    }
+    else
+        $("#modalNovaSala").modal('show');
 });
 
 $("#btnCriar").click(()=>{ // cria a sala
@@ -54,7 +60,7 @@ $("#btnCriar").click(()=>{ // cria a sala
 });
 
 function criarSala(nome)
-{   
+{       
         nomes_sala.push(nome);
         socket.emit('createRoom', nome);
 
@@ -63,11 +69,23 @@ function criarSala(nome)
 
 $("#rooms").submit(event=>{ // entra na sala
     event.preventDefault();
-    socket.emit('joinRoom', room_name);
-    entrarNaSala(room_name);
+    if(!nomePreenchido())
+    {
+        alert("Insira um nome de usuário!");
+        $("#txtUsername").focus();
+    }
+    else   
+        entrarNaSala(room_name);
 });
 
 function entrarNaSala(nome){
     socket.emit('joinRoom', nome);
     window.location.href = window.location.href + 'sala-' + nome;
+}
+
+function nomePreenchido(){
+    var nome = $("#txtUsername").val();
+    if(nome.trim() == null ||  nome.trim() == "")
+        return false;
+    return true;
 }
