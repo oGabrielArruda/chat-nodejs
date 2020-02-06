@@ -62,10 +62,6 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
                 messages.push(data); // armazena o objeto no array de mensagens
                 socket.broadcast.emit('receivedMessage', data); 
             });
-
-            socket.on('newDisconnect', name =>{
-                socket.broadcast.emit('receivedDisconnect', name);
-            });
             
             socket.on('disconnect', ()=>{
                 qtdOnline--;

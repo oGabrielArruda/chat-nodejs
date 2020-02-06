@@ -1,14 +1,13 @@
 var socket = io(window.location.href); // pega o socket de acordo com a url
 
-        function renderMessage(message){
-            $('.messages').append("<div class='message'><strong> "+
-                                    message.author + ": " +
-                                "</strong>" + message.message + "</div>");
-        }
+const author = localStorage.getItem("username");
+var msgSuasBoasVindas;
 
-        function renderAdvice(advice, color){
-            $('.messages').append("<div class='message'><strong>" +
-            "<span style='color: " + color + ";'>" + advice  +"</span></strong> </div>");
+        function renderMessage(message){
+            $('.messages').append("<div class='message'<span style='color:"+ message.color+";'><strong>"+
+                                    message.author + ": " +
+                                "</strong>" +
+                                message.message + "</span></div>");
         }
 
         socket.on('quantityOnline', quantity =>{
@@ -19,42 +18,46 @@ var socket = io(window.location.href); // pega o socket de acordo com a url
             messages.forEach(message => { // pra cada mensagem no array
                 renderMessage(message);
             });
+            renderMessage(msgSuasBoasVindas); 
         });
 
         socket.on('receivedMessage', message =>{ // recebe os dados do servidor
             renderMessage(message);
         });
 
-        socket.on('receivedConnection', nome =>{
-            var aviso = nome + " entrou na sala!";
-            renderAdvice(aviso, 'green');
-        });
-
         
-        $(document).ready(()=>{
-            socket.emit('newConnection', localStorage.getItem("username"));
-        });
-    
-        socket.on('receivedDisconnect', nome => {
-            var aviso = nome + " saiu da sala!";
-            renderAdvice(aviso, 'red');
-        });
+        window.onload = function(){ // função chamada ao carregar a página
+            msgSuasBoasVindas = {
+                author: 'SERVIDOR',
+                message: author + ' entrou na sala!',
+                color: 'green',
+            };
 
-        window.onbeforeunload = function(){
-            socket.emit('newDisconnect', localStorage.getItem("username"));
+            socket.emit('sendMessage', msgSuasBoasVindas);      
+        };
+    
+        window.onbeforeunload = function(){ // função chamada antes da tela fechar
+            var objetoDaMensagem = {
+                author: 'SERVIDOR',
+                message: author + ' saiu da sala!',
+                color: 'red',
+            };
+
+            socket.emit('sendMessage', objetoDaMensagem);
         }
 
 
         $('#chat').submit(function(event){
             event.preventDefault();
 
-            var author = localStorage.getItem("username");
+           
             var message = $('input[name=message]').val();
 
             if(author.length && message.length){
                 var messageObject = {
                     author: author,
                     message: message,
+                    color: 'black',
                 };
 
                 renderMessage(messageObject);
