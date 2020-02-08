@@ -1,0 +1,27 @@
+body{
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+}
+
+#container{
+    margin-left:26%;
+    margin-top: 4.5%;
+    width:50%;
+}
+
+#txtUsername{
+    border-radius: 8px;
+    width: 100%;
+    border-color: white;
+}
+
+#inputCont{
+    padding: 5%;
+    background-color: #007bff;
+    border: 1px solid black;
+}
+
+#roomCont{
+    padding: 2%;
+}
