@@ -11,6 +11,8 @@ function renderRoom(room){ // renderiza a ssala
     var elems = document.getElementsByClassName('room');
     for(var i = 0; i < elems.length; i++){
         elems[i].addEventListener('click', selectSala);
+        elems[i].addEventListener('mouseover', mudaCorDeFundo);
+        elems[i].addEventListener('mouseout', voltaCorDeFundo);
     }
 };
 
@@ -89,4 +91,15 @@ function nomePreenchido(){
     if(nome.trim() == null ||  nome.trim() == "")
         return false;
     return true;
+}
+
+
+// style
+
+function mudaCorDeFundo(){
+    $(this).css('background-color', '');
+}
+
+function voltaCorDeFundo(){
+    $(this).css('background-color', 'white');
 }
