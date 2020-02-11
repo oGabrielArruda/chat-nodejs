@@ -32,13 +32,14 @@ function selectSala(){ // seleciona a sala
         anterior.css('background-color', 'white');
     }
 
-    desativarListeners($(this));
-    $(this).css('background-color', 'black');
+    var objetoClickado = $(this);
+    //desativarListeners(objetoClickado);
+    mudaCorDeFundo(objetoClickado, 'black');
 
 
-    room_name = $(this).children('h1').text();
+    room_name = objetoClickado.children('h1').text();
     $("#entrar").removeAttr('disabled');
-    anterior = $(this);
+    anterior = objetoClickado;
 }
 
 
@@ -101,4 +102,9 @@ function nomePreenchido(){
 
 function mudaCorDeFundo(obj, cor){
     obj.css('background-color', cor);
+}
+
+function desativarListeners(obj){
+    obj.removeEventListener('mouseover', handlerOver);
+    obj.removeEventListener('mouseout', handlerOut);
 }
