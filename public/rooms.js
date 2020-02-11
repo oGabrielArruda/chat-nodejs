@@ -11,8 +11,8 @@ function renderRoom(room){ // renderiza a ssala
     var elems = document.getElementsByClassName('room');
     for(var i = 0; i < elems.length; i++){
         elems[i].addEventListener('click', selectSala);
-        elems[i].addEventListener('mouseover', mudaCorDeFundo);
-        elems[i].addEventListener('mouseout', voltaCorDeFundo);
+        elems[i].addEventListener('mouseover', function(){mudaCorDeFundo($(this),'#5dabff')});
+        elems[i].addEventListener('mouseout', function(){mudaCorDeFundo($(this),'white')});
     }
 };
 
@@ -32,7 +32,10 @@ function selectSala(){ // seleciona a sala
         anterior.css('background-color', 'white');
     }
 
+    desativarListeners($(this));
     $(this).css('background-color', 'black');
+
+
     room_name = $(this).children('h1').text();
     $("#entrar").removeAttr('disabled');
     anterior = $(this);
@@ -96,10 +99,6 @@ function nomePreenchido(){
 
 // style
 
-function mudaCorDeFundo(){
-    $(this).css('background-color', '');
-}
-
-function voltaCorDeFundo(){
-    $(this).css('background-color', 'white');
+function mudaCorDeFundo(obj, cor){
+    obj.css('background-color', cor);
 }
