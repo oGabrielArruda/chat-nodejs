@@ -55,6 +55,8 @@ $("#createRoom").click(()=>{ // abre o modal para criar
 
 $("#btnCriar").click(()=>{ // cria a sala
     var nome = $("#newRoomName").val();
+    nome = nome.replace('<', '&lt');
+    nome = nome.replace('>', '&gt');
 
     if(nome && nomes_sala.indexOf(nome) == -1) // se o nome não é vazio e ainda não existe
         criarSala(nome);
@@ -105,6 +107,6 @@ function mudaCorDeFundo(obj, cor){
 }
 
 function desativarListeners(obj){
-    obj.removeEventListener('mouseover', handlerOver);
-    obj.removeEventListener('mouseout', handlerOut);
+    obj.removeEventListener('mouseover', );
+    obj.removeEventListener('mouseout', );
 }

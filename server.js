@@ -19,7 +19,7 @@ app.get('/:id?', (req, res) =>{
 
 
 
-server.listen(1234, () => {
+server.listen(3000, () => {
     console.log("Running!");
 });
 
@@ -40,6 +40,8 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
 
         while(name.indexOf(' ') != -1)
             name = name.replace(' ', '%20');
+        name.replace('<', '&lt');
+        name.replace('>', '&gt');
 
         var sala = io.of('/sala-' + name); // cria-se um name-space específico para a sala
         rooms[name] = sala;

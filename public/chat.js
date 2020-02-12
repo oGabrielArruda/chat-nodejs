@@ -4,6 +4,9 @@ const author = localStorage.getItem("username");
 var msgSuasBoasVindas;
 
         function renderMessage(message){
+            message.message = message.message.replace('<', '&lt');
+            message.message = message.message.replace('>', '&gt');
+
             $('.messages').append("<div class='message'<span style='color:"+ message.color+";'><strong>"+
                                     message.author + ": " +
                                 "</strong>" +
