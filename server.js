@@ -43,7 +43,7 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
         name.replace('<', '&lt');
         name.replace('>', '&gt');
 
-        var sala = io.of('/sala-' + name); // cria-se um name-space específico para a sala
+       var sala = io.of('/sala-' + name); // cria-se um name-space específico para a sala
         rooms[name] = sala;
 
         let messages = []; // array de mensagens
@@ -68,6 +68,8 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
             socket.on('disconnect', ()=>{
                 qtdOnline--;
                 socket.broadcast.emit('quantityOnline', qtdOnline);
+                if(qtdOnline == 0)
+                    closeRoom(name);
             });
         });
     });
@@ -76,4 +78,14 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
         console.log("joinou");
         socket.disconnect();
     });
+
+    function closeRoom(name){
+        delete io.nsps[name];
+        rooms.splice(name, 1);
+        rooms_names = rooms_names.filter(room => {
+            return room !== name
+        })
+
+        console.log(rooms_names);
+    }
 });
