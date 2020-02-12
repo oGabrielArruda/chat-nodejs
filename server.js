@@ -23,9 +23,7 @@ server.listen(3000, () => {
     console.log("Running!");
 });
 
-let rooms = [];
 let rooms_names = [];
-
 
 io.on('connection', socket => { // toda vez que um usuário se conectar
     console.log(`Socket connected: ${socket.id}`);
@@ -44,11 +42,11 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
         name.replace('>', '&gt');
 
        var sala = io.of('/sala-' + name); // cria-se um name-space específico para a sala
-        rooms[name] = sala;
+
 
         let messages = []; // array de mensagens
         let qtdOnline = 0;
-        rooms[name].on('connection', (socket) => {
+        sala.on('connection', (socket) => {
             qtdOnline++;
             socket.broadcast.emit('quantityOnline', qtdOnline);
             socket.emit('quantityOnline', qtdOnline);
@@ -81,11 +79,9 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
 
     function closeRoom(name){
         delete io.nsps[name];
-        rooms.splice(name, 1);
+
         rooms_names = rooms_names.filter(room => {
             return room !== name
-        })
-
-        console.log(rooms_names);
+        });
     }
 });
