@@ -25,7 +25,16 @@ socket.on('previousRooms', (rooms)=>{ // exibe as salas já existente
 
 socket.on('receivedRoom', (room) => { // recebe a sala
     renderRoom(room);
-})
+});
+
+socket.on('deletedRoom', (room) => {
+    let vetorDeSalas = document.getElementsByClassName('room');
+    console.log(vetorDeSalas);
+    for(var element of vetorDeSalas) {
+        if(element.textContent.trim() == room)
+            document.removeChild(element);
+    }
+});
 
 function selectSala(){ // seleciona a sala
     if(anterior){

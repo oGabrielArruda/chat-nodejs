@@ -67,7 +67,7 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
                 qtdOnline--;
                 socket.broadcast.emit('quantityOnline', qtdOnline);
                 if(qtdOnline == 0)
-                    closeRoom(name);
+                    closeRoom(name);               
             });
         });
     });
@@ -83,5 +83,8 @@ io.on('connection', socket => { // toda vez que um usuário se conectar
         rooms_names = rooms_names.filter(room => {
             return room !== name
         });
+
+        name = name.replace('%20', ' ');
+        socket.broadcast.emit('deletedRoom', name);
     }
 });
