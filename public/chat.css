@@ -23,6 +23,12 @@ html, body {
     padding: 0 20px;
     font-size: 14px;
   }
+
+  input a:focus{
+    border: 2px solid transparent;
+    border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+    border-image-slice: 1;
+  }
   
   button {
     width: 600px;
@@ -34,6 +40,7 @@ html, body {
     font-weight: bold;
     color: #FFF;
     margin-top: 10px;
+    border: 0px;
   }
   
   .messages {
@@ -45,4 +52,7 @@ html, body {
     overflow-y: auto;
     overflow-x: hidden;
     word-wrap: break-word;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+    border-image-slice: 1;
   }

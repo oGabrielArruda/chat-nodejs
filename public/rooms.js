@@ -32,7 +32,7 @@ socket.on('deletedRoom', (room) => {
     console.log(vetorDeSalas);
     for(var element of vetorDeSalas) {
         if(element.textContent.trim() == room)
-            document.removeChild(element);
+             document.querySelector("#rooms").removeChild(element);
     }
 });
 
@@ -108,6 +108,9 @@ function nomePreenchido(){
     return true;
 }
 
+window.onload = () =>{
+    localStorage.clear();
+}
 
 // style
 

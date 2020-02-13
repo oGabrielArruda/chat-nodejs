@@ -45,7 +45,6 @@ var msgSuasBoasVindas;
                 message: author + ' saiu da sala!',
                 color: 'red',
             };
-
             socket.emit('sendMessage', objetoDaMensagem);
         }
 
@@ -70,3 +69,4 @@ var msgSuasBoasVindas;
                 $('input[name=message]').val("");
             }
         });
+       
