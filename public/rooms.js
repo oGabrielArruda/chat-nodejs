@@ -11,8 +11,8 @@ function renderRoom(room){ // renderiza a ssala
     var elems = document.getElementsByClassName('room');
     for(var i = 0; i < elems.length; i++){
         elems[i].addEventListener('click', selectSala);
-        elems[i].addEventListener('mouseover', function(){mudaCorDeFundo($(this),'#5dabff')});
-        elems[i].addEventListener('mouseout', function(){mudaCorDeFundo($(this),'white')});
+        //elems[i].addEventListener('mouseover', function(){mudaCorDeFundo($(this),'#5dabff')});
+        //elems[i].addEventListener('mouseout', function(){mudaCorDeFundo($(this),'white')});
     }
 };
 
@@ -43,7 +43,7 @@ function selectSala(){ // seleciona a sala
 
     var objetoClickado = $(this);
     //desativarListeners(objetoClickado);
-    mudaCorDeFundo(objetoClickado, 'black');
+    mudaCorDeFundo(objetoClickado, '#1071e2');
 
 
     room_name = objetoClickado.children('h1').text();
