@@ -11,8 +11,6 @@ function renderRoom(room){ // renderiza a ssala
     var elems = document.getElementsByClassName('room');
     for(var i = 0; i < elems.length; i++){
         elems[i].addEventListener('click', selectSala);
-        //elems[i].addEventListener('mouseover', function(){mudaCorDeFundo($(this),'#5dabff')});
-        //elems[i].addEventListener('mouseout', function(){mudaCorDeFundo($(this),'white')});
     }
 };
 
@@ -42,7 +40,6 @@ function selectSala(){ // seleciona a sala
     }
 
     var objetoClickado = $(this);
-    //desativarListeners(objetoClickado);
     mudaCorDeFundo(objetoClickado, '#1071e2');
 
 
@@ -116,9 +113,4 @@ window.onload = () =>{
 
 function mudaCorDeFundo(obj, cor){
     obj.css('background-color', cor);
-}
-
-function desativarListeners(obj){
-    obj.removeEventListener('mouseover', );
-    obj.removeEventListener('mouseout', );
 }
